@@ -57,9 +57,16 @@ export function DashboardSidebar({ role = "EMPLOYEE" }: DashboardSidebarProps) {
 
   const handleSignOut = async () => {
     setIsSigningOut(true)
-    await fetch('/api/auth/logout', { method: 'POST' })
-    router.push('/')
-    router.refresh()
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "same-origin",
+      })
+      router.push("/")
+      router.refresh()
+    } finally {
+      setIsSigningOut(false)
+    }
   }
 
   const navItems =
