@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="100%"
+   viewBox="0 0 680 580"
+   role="img"
+   style=""
+   version="1.1"
+   id="svg54"
+   sodipodi:docname="upskill_arquitectura_flujo.svg"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview54"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.5103448"
+     inkscape:cx="340.31963"
+     inkscape:cy="290"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g31" />
+  <title
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="title1">Diagrama de arquitectura de UpSkill</title>
+  <desc
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="desc1">Flujo desde el usuario hasta los servicios de datos, medios y deploy de UpSkill</desc>
+  <defs
+     id="defs27">
+    <marker
+       id="arrow"
+       viewBox="0 0 10 10"
+       refX="8"
+       refY="5"
+       markerWidth="6"
+       markerHeight="6"
+       orient="auto-start-reverse">
+      <path
+         d="M2 1L8 5L2 9"
+         fill="none"
+         stroke="context-stroke"
+         stroke-width="1.5"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         id="path1" />
+    </marker>
+    <mask
+       id="imagine-text-gaps-z2ujoj"
+       maskUnits="userSpaceOnUse">
+      <rect
+         x="0"
+         y="0"
+         width="680"
+         height="580"
+         fill="white"
+         id="rect1" />
+      <rect
+         x="311.8984375"
+         y="28.5"
+         width="56.203125"
+         height="19.000001907348633"
+         fill="black"
+         rx="2"
+         id="rect2" />
+      <rect
+         x="287.005859375"
+         y="45.125"
+         width="105.98828125"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect3" />
+      <rect
+         x="274.59375"
+         y="110.5"
+         width="130.8125"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect4" />
+      <rect
+         x="255.3359375"
+         y="129.125"
+         width="169.39862060546875"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect5" />
+      <rect
+         x="265.27734375"
+         y="206.5"
+         width="149.4453125"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect6" />
+      <rect
+         x="228.01171875"
+         y="225.125"
+         width="224.21868896484375"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect7" />
+      <rect
+         x="300.23828125"
+         y="298.5"
+         width="80.01385498046875"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect8" />
+      <rect
+         x="271.458984375"
+         y="315.125"
+         width="137.32205200195312"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect9" />
+      <rect
+         x="75.0703125"
+         y="206.5"
+         width="54.21776580810547"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect10" />
+      <rect
+         x="58.9960823059082"
+         y="225.125"
+         width="86.24996948242188"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect11" />
+      <rect
+         x="65.08982849121094"
+         y="320.5"
+         width="73.8203125"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect12" />
+      <rect
+         x="48.3417854309082"
+         y="339.125"
+         width="107.31640625"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect13" />
+      <rect
+         x="177.279296875"
+         y="440.5"
+         width="146.55430603027344"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect14" />
+      <rect
+         x="193.6953125"
+         y="459.125"
+         width="112.6875"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect15" />
+      <rect
+         x="537.904296875"
+         y="300.5"
+         width="84.19140625"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect16" />
+      <rect
+         x="543.666015625"
+         y="319.125"
+         width="72.66796875"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect17" />
+      <rect
+         x="558.119140625"
+         y="400.5"
+         width="44.260833740234375"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect18" />
+      <rect
+         x="515.013671875"
+         y="419.125"
+         width="130.96615600585938"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect19" />
+      <rect
+         x="502.2421875"
+         y="214.5"
+         width="52.48253631591797"
+         height="19"
+         fill="black"
+         rx="2"
+         id="rect20" />
+      <rect
+         x="510.005859375"
+         y="229.12501525878906"
+         width="35.98828125"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect21" />
+      <rect
+         x="56"
+         y="509.75"
+         width="90.01171875"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect22" />
+      <rect
+         x="172"
+         y="509.75"
+         width="76.671875"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect23" />
+      <rect
+         x="284"
+         y="509.75"
+         width="46.912296295166016"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect24" />
+      <rect
+         x="368"
+         y="509.75"
+         width="39.581153869628906"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect25" />
+      <rect
+         x="440"
+         y="509.75"
+         width="86.14735412597656"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect26" />
+      <rect
+         x="562"
+         y="507.7500305175781"
+         width="95.5778579711914"
+         height="17.75"
+         fill="black"
+         rx="2"
+         id="rect27" />
+    </mask>
+  </defs>
+  <!-- ── USUARIO ── -->
+  <g
+     onclick="sendPrompt('¿Qué tipos de usuarios tiene UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g29">
+    <rect
+       x="280"
+       y="20"
+       width="120"
+       height="44"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(68, 68, 65);stroke:rgb(180, 178, 169);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect28" />
+    <text
+       x="340"
+       y="38"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(211, 209, 199);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text28">Usuario</text>
+    <text
+       x="340"
+       y="54"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(180, 178, 169);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text29">Admin / Empleado</text>
+  </g>
+  <line
+     x1="340"
+     y1="64"
+     x2="340"
+     y2="100"
+     stroke="#7F77DD"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line29" />
+  <!-- ── VERCEL / NEXT.JS ── -->
+  <g
+     onclick="sendPrompt('¿Qué hace Vercel en la arquitectura de UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g31">
+    <rect
+       x="210"
+       y="100"
+       width="260"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(60, 52, 137);stroke:rgb(175, 169, 236);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect29" />
+    <text
+       x="340"
+       y="120"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="color:#ffffff;font-weight:500;font-size:14px;font-family:'Anthropic Sans', '-apple-system', BlinkMacSystemFont, 'Segoe UI', sans-serif;dominant-baseline:central;text-anchor:middle;opacity:1;fill:#cecbf6;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter"
+       id="text30">Vercel — Next.js</text>
+    <text
+       x="340"
+       y="138"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(175, 169, 236);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text31">Frontend + CDN global + SSR</text>
+  </g>
+  <!-- Flecha al API -->
+  <line
+     x1="340"
+     y1="156"
+     x2="340"
+     y2="196"
+     stroke="#1D9E75"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line31" />
+  <!-- ── NESTJS API ── -->
+  <g
+     onclick="sendPrompt('¿Qué endpoints expone la API NestJS de UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g33">
+    <rect
+       x="210"
+       y="196"
+       width="260"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(8, 80, 65);stroke:rgb(93, 202, 165);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect31" />
+    <text
+       x="340"
+       y="216"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(159, 225, 203);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text32">Railway — NestJS API</text>
+    <text
+       x="340"
+       y="234"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(93, 202, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text33">Auth · Roles · Capacitaciones · Puntajes</text>
+  </g>
+  <!-- Flecha izq hacia BullMQ -->
+  <line
+     x1="210"
+     y1="224"
+     x2="155"
+     y2="224"
+     stroke="#BA7517"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line33" />
+  <!-- Flecha der hacia PostgreSQL -->
+  <line
+     x1="470"
+     y1="224"
+     x2="525"
+     y2="310"
+     stroke="#639922"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line34" />
+  <!-- Flecha abajo hacia Auth -->
+  <line
+     x1="340"
+     y1="252"
+     x2="340"
+     y2="290"
+     stroke="#7F77DD"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line35" />
+  <!-- ── NEXTAUTH ── -->
+  <g
+     onclick="sendPrompt('¿Cómo maneja NextAuth los tres roles de UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g36">
+    <rect
+       x="248"
+       y="290"
+       width="184"
+       height="44"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(60, 52, 137);stroke:rgb(175, 169, 236);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect35" />
+    <text
+       x="340"
+       y="308"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(206, 203, 246);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text35">NextAuth.js</text>
+    <text
+       x="340"
+       y="324"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(175, 169, 236);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text36">JWT · OAuth · Sesiones</text>
+  </g>
+  <!-- ── BULLMQ ── -->
+  <g
+     onclick="sendPrompt('¿Cómo procesa UpSkill los videos con BullMQ?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g38">
+    <rect
+       x="50"
+       y="196"
+       width="105"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(99, 56, 6);stroke:rgb(239, 159, 39);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect36" />
+    <text
+       x="102"
+       y="216"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(250, 199, 117);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text37">BullMQ</text>
+    <text
+       x="102"
+       y="234"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(239, 159, 39);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text38">Cola de tareas</text>
+  </g>
+  <!-- BullMQ → Mux -->
+  <line
+     x1="102"
+     y1="252"
+     x2="102"
+     y2="310"
+     stroke="#BA7517"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line38" />
+  <!-- ── MUX VIDEO ── -->
+  <g
+     onclick="sendPrompt('¿Por qué Mux es mejor que YouTube para UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g40">
+    <rect
+       x="44"
+       y="310"
+       width="116"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(99, 56, 6);stroke:rgb(239, 159, 39);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect38" />
+    <text
+       x="102"
+       y="330"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(250, 199, 117);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text39">Mux Video</text>
+    <text
+       x="102"
+       y="348"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(239, 159, 39);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text40">HLS · Transcoding</text>
+  </g>
+  <!-- Mux → S3 -->
+  <line
+     x1="160"
+     y1="338"
+     x2="198"
+     y2="430"
+     stroke="#BA7517"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line40" />
+  <!-- ── AWS S3 + CLOUDFRONT ── -->
+  <g
+     onclick="sendPrompt('¿Cómo subo PDFs a S3 con presigned URLs en Next.js?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g42">
+    <rect
+       x="160"
+       y="430"
+       width="180"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(99, 56, 6);stroke:rgb(239, 159, 39);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect40" />
+    <text
+       x="250"
+       y="450"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(250, 199, 117);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text41">AWS S3 + CloudFront</text>
+    <text
+       x="250"
+       y="468"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(239, 159, 39);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text42">PDFs · Docs · CDN</text>
+  </g>
+  <!-- ── POSTGRESQL ── -->
+  <g
+     onclick="sendPrompt('¿Cómo estructuro las tablas de PostgreSQL para UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g44">
+    <rect
+       x="520"
+       y="290"
+       width="120"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(39, 80, 10);stroke:rgb(151, 196, 89);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect42" />
+    <text
+       x="580"
+       y="310"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(192, 221, 151);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text43">PostgreSQL</text>
+    <text
+       x="580"
+       y="328"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(151, 196, 89);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text44">BD principal</text>
+  </g>
+  <!-- PostgreSQL ↔ Redis -->
+  <line
+     x1="580"
+     y1="346"
+     x2="580"
+     y2="390"
+     stroke="#639922"
+     marker-end="url(#arrow)"
+     style="fill:none;stroke:rgb(156, 154, 146);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line44" />
+  <!-- ── REDIS ── -->
+  <g
+     onclick="sendPrompt('¿Qué cacheo en Redis para el leaderboard de UpSkill?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g46">
+    <rect
+       x="520"
+       y="390"
+       width="120"
+       height="56"
+       rx="8"
+       stroke-width="0.5"
+       style="fill:rgb(39, 80, 10);stroke:rgb(151, 196, 89);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect44" />
+    <text
+       x="580"
+       y="410"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(192, 221, 151);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text45">Redis</text>
+    <text
+       x="580"
+       y="428"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(151, 196, 89);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text46">Caché · BullMQ broker</text>
+  </g>
+  <!-- Redis → BullMQ (dashed, feedback) -->
+  <path
+     d="M520 418 L380 418 L380 252 L212 252"
+     fill="none"
+     stroke="#BA7517"
+     stroke-width="0.5"
+     stroke-dasharray="4 3"
+     marker-end="url(#arrow)"
+     mask="url(#imagine-text-gaps-z2ujoj)"
+     style="fill:none;stroke:rgb(186, 117, 23);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-dasharray:4px, 3px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="path46" />
+  <!-- Prisma label between API and PG -->
+  <g
+     onclick="sendPrompt('¿Cómo configuro Prisma ORM con PostgreSQL?')"
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g48">
+    <rect
+       x="490"
+       y="210"
+       width="76"
+       height="36"
+       rx="6"
+       stroke-width="0.5"
+       style="fill:rgb(68, 68, 65);stroke:rgb(180, 178, 169);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect46" />
+    <text
+       x="528"
+       y="224"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(211, 209, 199);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central"
+       id="text47">Prisma</text>
+    <text
+       x="528"
+       y="238"
+       text-anchor="middle"
+       dominant-baseline="central"
+       style="fill:rgb(180, 178, 169);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central"
+       id="text48">ORM</text>
+  </g>
+  <!-- Legend -->
+  <g
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g49">
+    <rect
+       x="44"
+       y="514"
+       width="10"
+       height="10"
+       rx="2"
+       style="fill:rgb(60, 52, 137);stroke:rgb(175, 169, 236);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect48" />
+  </g>
+  <text
+     x="60"
+     y="523"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text49">Frontend / Auth</text>
+  <g
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g50">
+    <rect
+       x="160"
+       y="514"
+       width="10"
+       height="10"
+       rx="2"
+       style="fill:rgb(8, 80, 65);stroke:rgb(93, 202, 165);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect49" />
+  </g>
+  <text
+     x="176"
+     y="523"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text50">Backend API</text>
+  <g
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g51">
+    <rect
+       x="272"
+       y="514"
+       width="10"
+       height="10"
+       rx="2"
+       style="fill:rgb(99, 56, 6);stroke:rgb(239, 159, 39);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect50" />
+  </g>
+  <text
+     x="288"
+     y="523"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text51">Medios</text>
+  <g
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g52">
+    <rect
+       x="356"
+       y="514"
+       width="10"
+       height="10"
+       rx="2"
+       style="fill:rgb(39, 80, 10);stroke:rgb(151, 196, 89);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect51" />
+  </g>
+  <text
+     x="372"
+     y="523"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text52">Datos</text>
+  <g
+     style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="g53">
+    <rect
+       x="428"
+       y="514"
+       width="10"
+       height="10"
+       rx="2"
+       style="fill:rgb(68, 68, 65);stroke:rgb(180, 178, 169);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+       id="rect52" />
+  </g>
+  <text
+     x="444"
+     y="523"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text53">Infraestructura</text>
+  <line
+     x1="540"
+     y1="516"
+     x2="560"
+     y2="516"
+     stroke="#BA7517"
+     stroke-width="0.5"
+     stroke-dasharray="4 3"
+     style="fill:rgb(0, 0, 0);stroke:rgb(186, 117, 23);color:rgb(255, 255, 255);stroke-width:0.5px;stroke-dasharray:4px, 3px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="line53" />
+  <text
+     x="566"
+     y="521"
+     style="fill:rgb(194, 192, 182);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:auto"
+     id="text54">Feedback async</text>
+</svg>

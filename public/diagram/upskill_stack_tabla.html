@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stack Tecnológico para UpSkill</title>
+	<style>
+		body {
+			font-family: 'Inter', sans-serif;
+			background-color: #2c3e50;
+			color: #ffffff;
+			font-size: 1.2rem;
+			padding: 2rem;
+		}
+
+		h2.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0)
+		}
+
+		.tbl {
+			width: 100%;
+			border-collapse: collapse;
+			table-layout: fixed
+		}
+
+		.tbl th {
+			font-weight: 500;
+			color: var(--color-text-secondary);
+			text-transform: uppercase;
+			letter-spacing: .06em;
+			padding: 8px 12px;
+			border-bottom: 0.5px solid var(--color-border-tertiary);
+			text-align: left
+		}
+
+		.tbl td {
+			padding: 10px 12px;
+			border-bottom: 0.5px solid var(--color-border-tertiary);
+			vertical-align: top;
+			color: var(--color-text-primary)
+		}
+
+		.tbl tr:last-child td {
+			border-bottom: none
+		}
+
+		.tbl tr:hover td {
+			background: var(--color-background-secondary)
+		}
+
+		.badge {
+			display: inline-block;
+			font-weight: 500;
+			padding: 2px 8px;
+			border-radius: 20px;
+			white-space: nowrap
+		}
+
+		.b-purple {
+			background: var(--color-background-primary);
+			border: 0.5px solid #7F77DD;
+			color: #534AB7
+		}
+
+		.b-teal {
+			background: var(--color-background-primary);
+			border: 0.5px solid #1D9E75;
+			color: #0F6E56
+		}
+
+		.b-amber {
+			background: var(--color-background-primary);
+			border: 0.5px solid #BA7517;
+			color: #854F0B
+		}
+
+		.b-green {
+			background: var(--color-background-primary);
+			border: 0.5px solid #639922;
+			color: #3B6D11
+		}
+
+		.b-gray {
+			background: var(--color-background-secondary);
+			border: 0.5px solid var(--color-border-secondary);
+			color: var(--color-text-secondary)
+		}
+
+		.tech {
+			font-weight: 500;
+			font-size: 1.1rem;
+			color: var(--color-text-primary)
+		}
+
+		.desc {
+			color: var(--color-text-secondary);
+			margin-top: 2px
+		}
+
+		.col-capa {
+			width: 17%
+		}
+
+		.col-tech {
+			width: 22%
+		}
+
+		.col-desc {
+			width: 35%
+		}
+
+		.col-alt {
+			width: 26%
+		}
+
+		.img-head {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.img-head img {
+			width: 60%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<h2 class="sr-only">Tabla de recomendaciones del stack tecnológico para UpSkill</h2>
+	<div class="img-head">
+		<img src="upskill_arquitectura_flujo.svg" alt="UpSkill">
+	</div>
+	<div
+		style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden">
+		<table class="tbl">
+			<thead>
+				<tr>
+					<th class="col-capa">Capa</th>
+					<th class="col-tech">Tecnología</th>
+					<th class="col-desc">Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><span class="badge b-purple">Frontend</span></td>
+					<td>
+						<div class="tech">Next.js</div>
+						<div class="desc">App Router + SSR</div>
+					</td>
+					<td>
+						<div class="desc">Renderizado híbrido, rutas protegidas por rol y layouts compartidos entre
+							panel admin y empleado. Creado por Vercel, deploy trivial.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-purple">Frontend</span></td>
+					<td>
+						<div class="tech">TypeScript</div>
+						<div class="desc">Tipado estricto</div>
+					</td>
+					<td>
+						<div class="desc">Evita errores silenciosos en la lógica de asignación de roles y puntajes.
+							Obligatorio en proyectos empresariales.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-purple">Frontend</span></td>
+					<td>
+						<div class="tech">Tailwind CSS</div>
+						<div class="desc">Dark mode nativo</div>
+					</td>
+					<td>
+						<div class="desc">Dark mode de primera clase con clases utilitarias. La paleta azul/gris de
+							UpSkill se configura directamente en tailwind.config.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-teal">Backend</span></td>
+					<td>
+						<div class="tech">NestJS + Node.js</div>
+						<div class="desc">API REST modular</div>
+					</td>
+					<td>
+						<div class="desc">Arquitectura de módulos, guards para control de roles (Admin HR, Supervisor,
+							Empleado) y pipes de validación. Más robusto que Express para proyectos empresariales.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-teal">Backend</span></td>
+					<td>
+						<div class="tech">NextAuth.js</div>
+						<div class="desc">Autenticación + JWT</div>
+					</td>
+					<td>
+						<div class="desc">Manejo de sesiones, OAuth con Google/Microsoft (común en empresas) y JWT para
+							los tres roles de UpSkill sin configuración compleja.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-teal">Backend</span></td>
+					<td>
+						<div class="tech">BullMQ + Redis</div>
+						<div class="desc">Colas de tareas</div>
+					</td>
+					<td>
+						<div class="desc">Procesa videos en background sin bloquear la API: cuando un admin sube un
+							video, BullMQ encola el trabajo de transcoding y notifica al usuario al completar.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-teal">Backend</span></td>
+					<td>
+						<div class="tech">Prisma ORM</div>
+						<div class="desc">Capa de datos</div>
+					</td>
+					<td>
+						<div class="desc">Migraciones versionadas, queries type-safe y un schema declarativo que
+							documenta la BD. Indispensable con TypeScript.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-amber">Medios</span></td>
+					<td>
+						<div class="tech">Mux Video</div>
+						<div class="desc">Streaming de videos</div>
+					</td>
+					<td>
+						<div class="desc">API-first: sube el video, Mux lo transcodifica automáticamente a HLS
+							adaptativo. Incluye analytics por video (% visto, abandonos). Tier gratuito para empezar.
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-amber">Medios</span></td>
+					<td>
+						<div class="tech">AWS S3 + CloudFront</div>
+						<div class="desc">Documentos y PDFs</div>
+					</td>
+					<td>
+						<div class="desc">S3 almacena PDFs, presentaciones y materiales. CloudFront los distribuye vía
+							CDN. Presigned URLs permiten subida directa desde el navegador sin pasar por el servidor.
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-green">Datos</span></td>
+					<td>
+						<div class="tech">PostgreSQL</div>
+						<div class="desc">Base de datos principal</div>
+					</td>
+					<td>
+						<div class="desc">Ideal para el modelo relacional de UpSkill: usuarios, roles, capacitaciones,
+							asignaciones y puntajes con integridad referencial garantizada.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-green">Datos</span></td>
+					<td>
+						<div class="tech">Redis</div>
+						<div class="desc">Caché y sesiones</div>
+					</td>
+					<td>
+						<div class="desc">Cachea el leaderboard de puntajes (consultado por muchos usuarios
+							simultáneamente) y actúa como broker de mensajes para BullMQ.</div>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="badge b-gray">Deploy</span></td>
+					<td>
+						<div class="tech">Vercel + Railway</div>
+						<div class="desc">Hosting</div>
+					</td>
+					<td>
+						<div class="desc">Vercel para el frontend Next.js (deploy automático desde Git, CDN global).
+							Railway para el backend NestJS y PostgreSQL en un solo lugar, con variables de entorno y
+							logs.</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

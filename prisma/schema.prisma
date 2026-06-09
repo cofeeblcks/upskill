@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  EMPLOYEE
+  SUPERVISOR
+  ADMIN_HR
+}
+
+enum TrainingStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum BadgeType {
+  FIRST_TRAINING
+  STREAK_5
+  STREAK_10
+  TOP_SCORER
+  PERFECT_SCORE
+  EARLY_BIRD
+  TEAM_PLAYER
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String
+  email         String       @unique
+  password      String
+  role          Role         @default(EMPLOYEE)
+  position      String?
+  department    String?
+  points        Int          @default(0)
+  avatarUrl     String?
+  supervisorId  String?
+  supervisor    User?        @relation("SupervisorEmployees", fields: [supervisorId], references: [id])
+  employees     User[]       @relation("SupervisorEmployees")
+  assignments   Assignment[]
+  badges        Badge[]
+  auditLogs     AuditLog[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Training {
+  id            String       @id @default(cuid())
+  title         String
+  description   String?
+  category      String
+  durationMin   Int
+  fileUrl       String?
+  requiredRoles Role[]
+  positions     String[]
+  isActive      Boolean      @default(true)
+  assignments   Assignment[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Assignment {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trainingId  String
+  training    Training       @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  status      TrainingStatus @default(NOT_STARTED)
+  progress    Int            @default(0)
+  score       Int?
+  dueDate     DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@unique([userId, trainingId])
+}
+
+model Badge {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      BadgeType
+  awardedAt DateTime  @default(now())
+
+  @@unique([userId, type])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* UpSkill Light Theme — Nebula Admin style with logo colors */
+:root {
+  --background: #F0F7FF;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #1E6FD9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EFF6FF;
+  --secondary-foreground: #1E40AF;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #0FAAA8;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #E2E8F0;
+  --input: #E8F0F8;
+  --ring: #1E6FD9;
+  --chart-1: #1E6FD9;
+  --chart-2: #22C55E;
+  --chart-3: #F59E0B;
+  --chart-4: #0FAAA8;
+  --chart-5: #94A3B8;
+  --radius: 1rem;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0F172A;
+  --sidebar-primary: #1E6FD9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EFF6FF;
+  --sidebar-accent-foreground: #1E40AF;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #1E6FD9;
+
+  /* Custom UpSkill tokens */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --pending: #94A3B8;
+  --blue-primary: #1E6FD9;
+  --blue-light: #3B8FFF;
+  --blue-mid: #2C7BE5;
+  --gray-muted: #64748B;
+  --gray-light: #CBD5E1;
+}
+
+/* Dark mode — mantiene el tema oscuro original para el toggle */
+.dark {
+  --background: #0D1B2A;
+  --foreground: #FFFFFF;
+  --card: #1A2E45;
+  --card-foreground: #FFFFFF;
+  --popover: #1A2E45;
+  --popover-foreground: #FFFFFF;
+  --primary: #1E6FD9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #132336;
+  --secondary-foreground: #B8C9DA;
+  --muted: #132336;
+  --muted-foreground: #8096AD;
+  --accent: #3B8FFF;
+  --accent-foreground: #FFFFFF;
+  --destructive: #ef4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #1E3A5F;
+  --input: #1E3A5F;
+  --ring: #3B8FFF;
+  --chart-1: #1E6FD9;
+  --chart-2: #22C55E;
+  --chart-3: #F59E0B;
+  --chart-4: #3B8FFF;
+  --chart-5: #64748B;
+  --sidebar: #132336;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #1E6FD9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1A2E45;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #1E3A5F;
+  --sidebar-ring: #3B8FFF;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --pending: #64748B;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-pending: var(--pending);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply text-foreground;
+    background: linear-gradient(135deg, #dbeafe 0%, #ccfbf1 40%, #d1fae5 75%, #e0f2fe 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background: linear-gradient(135deg, #0D1B2A 0%, #0a1f2e 50%, #0f1e30 100%);
+  }
+}
+
+@layer components {
+  /* Soft shadow en cards para el estilo Nebula Admin */
+  [data-slot="card"] {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+    border: 1px solid var(--border);
+  }
+
+  .dark [data-slot="card"] {
+    box-shadow: none;
+  }
+}
