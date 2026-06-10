@@ -294,7 +294,7 @@ next.config.mjs                             ← Optimización de imágenes habil
 
 Los siguientes puntos requieren configuración adicional antes de ir a producción:
 
-1. **Base de datos** — Configurar `DATABASE_URL` en `.env` y ejecutar `prisma migrate deploy`
+1. **Base de datos** — Configurar Supabase (ver `README.md` y `supabase/migrations/`) y variables en `.env.local`
 2. **Reemplazar datos mock** — Los archivos API tienen comentarios `// TODO` marcando dónde conectar Prisma
 3. **Variables de entorno** — Crear archivo `.env` con `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
 4. **Envío de correos** — La página de "Olvidé mi contraseña" tiene la UI lista pero necesita integrar un servicio de email (SendGrid, Resend, etc.)

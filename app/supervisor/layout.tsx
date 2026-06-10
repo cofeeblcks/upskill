@@ -1,27 +1,27 @@
-import { DashboardSidebar } from "@/components/dashboard-sidebar"
-import { DashboardTopbar } from "@/components/dashboard-topbar"
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
+import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { DashboardTopbar } from "@/components/dashboard-topbar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { getLayoutSession } from "@/lib/layout-session";
 
-// Mock supervisor user data
-const mockSupervisorUser = {
-  name: "Roberto Díaz",
-  email: "roberto.diaz@empresa.com",
-  avatar: undefined,
-  points: 1850,
-}
-
-export default function SupervisorLayout({
+export default async function SupervisorLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
+  const layout = await getLayoutSession();
+  const topbarUser = layout?.topbarUser ?? {
+    name: "Supervisor",
+    email: "",
+    points: 0,
+  };
+
   return (
     <SidebarProvider>
       <DashboardSidebar role="SUPERVISOR" />
       <SidebarInset className="flex w-full flex-col">
-        <DashboardTopbar user={mockSupervisorUser} />
-        <main className="flex-1 p-4 md:p-6 overflow-x-hidden">{children}</main>
+        <DashboardTopbar user={topbarUser} />
+        <main className="flex-1 overflow-x-hidden p-4 md:p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

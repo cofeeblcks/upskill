@@ -1,7 +1,12 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import type { AdminAnalyticsSnapshot } from "@/lib/data/queries";
 import {
   BarChart,
   Bar,
@@ -14,65 +19,86 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-} from "recharts"
+} from "recharts";
 
-const completionByDepartment = [
-  { department: "Finanzas", completion: 85 },
-  { department: "Operaciones", completion: 72 },
-  { department: "RRHH", completion: 91 },
-  { department: "Ventas", completion: 68 },
-  { department: "TI", completion: 78 },
-  { department: "Marketing", completion: 82 },
-]
-
-const engagementOverTime = [
-  { month: "Jul", trainings: 45, completions: 38 },
-  { month: "Ago", trainings: 52, completions: 44 },
-  { month: "Sep", trainings: 61, completions: 55 },
-  { month: "Oct", trainings: 58, completions: 52 },
-  { month: "Nov", trainings: 72, completions: 65 },
-  { month: "Dic", trainings: 80, completions: 71 },
-]
-
-const pointsDistribution = [
-  { range: "0-500", count: 12, fill: "var(--pending)" },
-  { range: "501-1000", count: 28, fill: "var(--warning)" },
-  { range: "1001-2000", count: 45, fill: "var(--chart-1)" },
-  { range: "2001-3000", count: 52, fill: "var(--success)" },
-  { range: "3000+", count: 19, fill: "var(--chart-4)" },
-]
-
-const categoryBreakdown = [
-  { name: "Cumplimiento", value: 35, fill: "#1E6FD9" },
-  { name: "Seguridad", value: 25, fill: "#F59E0B" },
-  { name: "Liderazgo", value: 18, fill: "#8B5CF6" },
-  { name: "Técnico", value: 15, fill: "#22C55E" },
-  { name: "Habilidades Blandas", value: 7, fill: "#EC4899" },
-]
+export type AnalyticsChartsProps = {
+  completionByDepartment: AdminAnalyticsSnapshot["completionByDepartment"];
+  monthlyEngagement: AdminAnalyticsSnapshot["monthlyEngagement"];
+  pointsDistribution: AdminAnalyticsSnapshot["pointsDistribution"];
+  categoryBreakdown: AdminAnalyticsSnapshot["categoryBreakdown"];
+};
 
 const chartConfig = {
-  completion: { label: "Completado", color: "var(--success)" },
-  trainings: { label: "Asignadas", color: "var(--chart-1)" },
-  completions: { label: "Completadas", color: "var(--success)" },
-}
+  completion: { label: "Completado %", color: "var(--success)" },
+  assigned: { label: "Asignaciones nuevas", color: "var(--chart-1)" },
+  completed: { label: "Completadas", color: "var(--success)" },
+};
 
-export default function AnalyticsCharts() {
+export default function AnalyticsCharts({
+  completionByDepartment,
+  monthlyEngagement,
+  pointsDistribution,
+  categoryBreakdown,
+}: AnalyticsChartsProps) {
+  const deptData =
+    completionByDepartment.length > 0
+      ? completionByDepartment
+      : [{ department: "Sin datos", completion: 0 }];
+
+  const lineData =
+    monthlyEngagement.length > 0
+      ? monthlyEngagement
+      : [{ month: "—", assigned: 0, completed: 0 }];
+
+  const pointsData =
+    pointsDistribution.length > 0
+      ? pointsDistribution
+      : [{ range: "—", count: 0, fill: "var(--muted)" }];
+
+  const pieData =
+    categoryBreakdown.length > 0
+      ? categoryBreakdown
+      : [{ name: "Sin asignaciones", value: 100, fill: "var(--muted)" }];
+
   return (
     <>
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle>Completado por Departamento</CardTitle>
+            <CardTitle>Completado por departamento</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              % de asignaciones completadas por departamento del empleado.
+            </p>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={completionByDepartment} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={true} vertical={false} />
-                  <XAxis type="number" domain={[0, 100]} tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} />
-                  <YAxis dataKey="department" type="category" tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} width={80} />
+                <BarChart data={deptData} layout="vertical">
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--border)"
+                    horizontal={true}
+                    vertical={false}
+                  />
+                  <XAxis
+                    type="number"
+                    domain={[0, 100]}
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                  />
+                  <YAxis
+                    dataKey="department"
+                    type="category"
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                    width={100}
+                  />
                   <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="completion" fill="var(--success)" radius={[0, 4, 4, 0]} />
+                  <Bar
+                    dataKey="completion"
+                    fill="var(--success)"
+                    radius={[0, 4, 4, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </ChartContainer>
@@ -81,18 +107,43 @@ export default function AnalyticsCharts() {
 
         <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle>Engagement de Capacitaciones</CardTitle>
+            <CardTitle>Asignaciones por mes</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              Últimos 6 meses: nuevas asignaciones vs completadas en el mes.
+            </p>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={engagementOverTime}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                  <XAxis dataKey="month" tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} />
-                  <YAxis tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} />
+                <LineChart data={lineData}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--border)"
+                  />
+                  <XAxis
+                    dataKey="month"
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                  />
+                  <YAxis
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                  />
                   <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line type="monotone" dataKey="trainings" stroke="var(--chart-1)" strokeWidth={2} dot={{ fill: "var(--chart-1)", r: 4 }} />
-                  <Line type="monotone" dataKey="completions" stroke="var(--success)" strokeWidth={2} dot={{ fill: "var(--success)", r: 4 }} />
+                  <Line
+                    type="monotone"
+                    dataKey="assigned"
+                    stroke="var(--chart-1)"
+                    strokeWidth={2}
+                    dot={{ fill: "var(--chart-1)", r: 4 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="completed"
+                    stroke="var(--success)"
+                    strokeWidth={2}
+                    dot={{ fill: "var(--success)", r: 4 }}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </ChartContainer>
@@ -103,18 +154,32 @@ export default function AnalyticsCharts() {
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle>Distribución de Puntos</CardTitle>
+            <CardTitle>Empleados por rango de puntos</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              Distribución de empleados activos según sus puntos actuales.
+            </p>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={pointsDistribution}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                  <XAxis dataKey="range" tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} />
-                  <YAxis tick={{ fill: "var(--muted-foreground)", fontSize: 12 }} axisLine={{ stroke: "var(--border)" }} />
+                <BarChart data={pointsData}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="var(--border)"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="range"
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                  />
+                  <YAxis
+                    tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+                    axisLine={{ stroke: "var(--border)" }}
+                  />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                    {pointsDistribution.map((entry, index) => (
+                    {pointsData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />
                     ))}
                   </Bar>
@@ -126,28 +191,45 @@ export default function AnalyticsCharts() {
 
         <Card className="border-border bg-card">
           <CardHeader>
-            <CardTitle>Capacitaciones por Categoría</CardTitle>
+            <CardTitle>Asignaciones por categoría</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              % del total de asignaciones según la categoría de la capacitación.
+            </p>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center">
               <ChartContainer config={chartConfig} className="h-[250px] w-[250px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <ChartTooltip content={<ChartTooltipContent />} />
-                    <Pie data={categoryBreakdown} dataKey="value" nameKey="name" innerRadius={60} outerRadius={100} strokeWidth={0}>
-                      {categoryBreakdown.map((entry, index) => (
+                    <Pie
+                      data={pieData}
+                      dataKey="value"
+                      nameKey="name"
+                      innerRadius={60}
+                      outerRadius={100}
+                      strokeWidth={0}
+                    >
+                      {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.fill} />
                       ))}
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
               </ChartContainer>
-              <div className="flex-1 space-y-3">
-                {categoryBreakdown.map((item) => (
+              <div className="flex w-full flex-1 flex-col space-y-3">
+                {pieData.map((item) => (
                   <div key={item.name} className="flex items-center gap-3">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: item.fill }} />
-                    <span className="flex-1 text-sm text-foreground">{item.name}</span>
-                    <span className="text-sm font-medium text-muted-foreground">{item.value}%</span>
+                    <div
+                      className="h-3 w-3 shrink-0 rounded-full"
+                      style={{ backgroundColor: item.fill }}
+                    />
+                    <span className="flex-1 text-sm text-foreground">
+                      {item.name}
+                    </span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                      {item.value}%
+                    </span>
                   </div>
                 ))}
               </div>
@@ -156,5 +238,5 @@ export default function AnalyticsCharts() {
         </Card>
       </div>
     </>
-  )
+  );
 }
