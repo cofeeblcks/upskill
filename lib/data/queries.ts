@@ -1,8 +1,14 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { BADGE_CATALOG } from "@/lib/badges-catalog";
 import type { SessionPayload } from "@/lib/session";
+import {
+  aggregateAssignmentProgress,
+  buildUserProgressMap,
+} from "@/lib/trainings/progress";
 
 function db() {
+  noStore();
   try {
     return createServiceRoleClient();
   } catch {
@@ -55,17 +61,20 @@ export type EmployeeDashboardData = {
     points: number;
     completedTrainings: number;
     totalTrainings: number;
+    overallProgressPercent: number;
     streak: number;
     rank: number;
   };
   trainings: Array<{
     id: string;
+    assignmentId: string;
     title: string;
     category: string;
     duration: number;
     progress: number;
     status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
     dueDate?: string;
+    fileUrl?: string | null;
   }>;
   badges: Array<{
     id: string;
@@ -108,7 +117,7 @@ export async function getEmployeeDashboard(
     tids.length > 0
       ? await sb
           .from("trainings")
-          .select("id, title, category, duration_min")
+          .select("id, title, category, duration_min, file_url")
           .in("id", tids)
       : { data: [] as const };
   const tMap = new Map((trainingRows ?? []).map((t) => [t.id, t]));
@@ -120,17 +129,22 @@ export async function getEmployeeDashboard(
     const duration = t?.duration_min ?? 0;
     return {
       id: a.training_id,
+      assignmentId: a.id,
       title,
       category,
       duration,
       progress: a.progress,
       status: a.status as "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED",
       dueDate: formatDue(a.due_date),
+      fileUrl: t?.file_url ?? null,
     };
   });
 
-  const completedTrainings = rows.filter((r) => r.status === "COMPLETED").length;
-  const totalTrainings = rows.length;
+  const progressAgg = aggregateAssignmentProgress(
+    rows.map((r) => ({ status: r.status, progress: r.progress }))
+  );
+  const completedTrainings = progressAgg.completed;
+  const totalTrainings = progressAgg.total;
 
   const { data: earnedBadges } = await sb
     .from("badges")
@@ -193,12 +207,86 @@ export async function getEmployeeDashboard(
       points: user.points,
       completedTrainings,
       totalTrainings,
+      overallProgressPercent: progressAgg.progressPercent,
       streak,
       rank,
     },
     trainings,
     badges,
     leaderboard,
+  };
+}
+
+export type EmployeeTrainingDetail = {
+  training: {
+    id: string;
+    title: string;
+    description: string | null;
+    category: string;
+    durationMin: number;
+    fileUrl: string | null;
+  };
+  assignment: {
+    id: string;
+    status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+    progress: number;
+    score: number | null;
+    dueDate: string | null;
+    dueDateLabel?: string;
+    startedAt: string | null;
+    completedAt: string | null;
+    completedAtLabel?: string;
+  };
+};
+
+export async function getEmployeeTrainingDetail(
+  userId: string,
+  trainingId: string
+): Promise<EmployeeTrainingDetail | null> {
+  const sb = db();
+  if (!sb) return null;
+
+  const { data: assignment } = await sb
+    .from("assignments")
+    .select(
+      "id, status, progress, score, due_date, started_at, completed_at"
+    )
+    .eq("user_id", userId)
+    .eq("training_id", trainingId)
+    .maybeSingle();
+
+  if (!assignment) return null;
+
+  const { data: training } = await sb
+    .from("trainings")
+    .select("id, title, description, category, duration_min, file_url, is_active")
+    .eq("id", trainingId)
+    .maybeSingle();
+
+  if (!training || !training.is_active) return null;
+
+  return {
+    training: {
+      id: training.id,
+      title: training.title,
+      description: training.description,
+      category: training.category,
+      durationMin: training.duration_min,
+      fileUrl: training.file_url,
+    },
+    assignment: {
+      id: assignment.id,
+      status: assignment.status as EmployeeTrainingDetail["assignment"]["status"],
+      progress: assignment.progress,
+      score: assignment.score,
+      dueDate: assignment.due_date,
+      dueDateLabel: formatDue(assignment.due_date),
+      startedAt: assignment.started_at,
+      completedAt: assignment.completed_at,
+      completedAtLabel: assignment.completed_at
+        ? formatShort(assignment.completed_at)
+        : undefined,
+    },
   };
 }
 
@@ -338,6 +426,7 @@ export type SupervisorTeam = {
     department: string;
     completedTrainings: number;
     totalTrainings: number;
+    progressPercent: number;
     points: number;
   }>;
 };
@@ -369,22 +458,20 @@ export async function getSupervisorTeam(
 
   const { data: allAssign } = await sb
     .from("assignments")
-    .select("user_id, status")
+    .select("user_id, status, progress")
     .in(
       "user_id",
       list.map((m) => m.id)
     );
 
-  const byUser = new Map<string, { total: number; completed: number }>();
-  for (const a of allAssign ?? []) {
-    const cur = byUser.get(a.user_id) ?? { total: 0, completed: 0 };
-    cur.total += 1;
-    if (a.status === "COMPLETED") cur.completed += 1;
-    byUser.set(a.user_id, cur);
-  }
+  const progressByUser = buildUserProgressMap(allAssign ?? []);
 
   const enriched = list.map((m) => {
-    const st = byUser.get(m.id) ?? { total: 0, completed: 0 };
+    const st = progressByUser.get(m.id) ?? {
+      completed: 0,
+      total: 0,
+      progressPercent: 0,
+    };
     return {
       id: m.id,
       name: m.name,
@@ -392,6 +479,7 @@ export async function getSupervisorTeam(
       department: m.department ?? "—",
       completedTrainings: st.completed,
       totalTrainings: st.total,
+      progressPercent: st.progressPercent,
       points: m.points,
     };
   });
@@ -401,10 +489,7 @@ export async function getSupervisorTeam(
   let topName = "—";
   let topPoints = -1;
   for (const m of enriched) {
-    const pct =
-      m.totalTrainings > 0
-        ? Math.round((m.completedTrainings / m.totalTrainings) * 100)
-        : 0;
+    const pct = m.progressPercent;
     sum += pct;
     if (pct < 50 && m.totalTrainings > 0) atRisk += 1;
     if (m.points > topPoints) {
@@ -433,6 +518,7 @@ export type AdminEmployeeRow = {
   position: string;
   department: string;
   points: number;
+  progress: number;
   completedTrainings: number;
   totalTrainings: number;
   isActive: boolean;
@@ -448,17 +534,17 @@ export async function getAdminEmployees(): Promise<AdminEmployeeRow[] | null> {
     .order("name", { ascending: true });
   if (!users?.length) return [];
 
-  const { data: assigns } = await sb.from("assignments").select("user_id, status");
-  const byUser = new Map<string, { total: number; completed: number }>();
-  for (const a of assigns ?? []) {
-    const cur = byUser.get(a.user_id) ?? { total: 0, completed: 0 };
-    cur.total += 1;
-    if (a.status === "COMPLETED") cur.completed += 1;
-    byUser.set(a.user_id, cur);
-  }
+  const { data: assigns } = await sb
+    .from("assignments")
+    .select("user_id, status, progress");
+  const progressByUser = buildUserProgressMap(assigns ?? []);
 
   return users.map((u) => {
-    const st = byUser.get(u.id) ?? { total: 0, completed: 0 };
+    const st = progressByUser.get(u.id) ?? {
+      completed: 0,
+      total: 0,
+      progressPercent: 0,
+    };
     return {
       id: u.id,
       name: u.name,
@@ -467,6 +553,7 @@ export async function getAdminEmployees(): Promise<AdminEmployeeRow[] | null> {
       position: u.position ?? "—",
       department: u.department ?? "—",
       points: u.points,
+      progress: st.progressPercent,
       completedTrainings: st.completed,
       totalTrainings: st.total,
       isActive: u.is_active,
@@ -502,6 +589,7 @@ export type EmployeeProfile = {
     points: number;
     completedTrainings: number;
     totalTrainings: number;
+    overallProgressPercent: number;
     streak: number;
     rank: number;
   };
@@ -509,6 +597,7 @@ export type EmployeeProfile = {
     id: string;
     training: string;
     status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+    progress: number;
     points: number;
     date: string;
   }>;
@@ -530,7 +619,7 @@ export async function getEmployeeProfile(
 
   const { data: assigns } = await sb
     .from("assignments")
-    .select("id, status, score, training_id, updated_at")
+    .select("id, status, progress, score, training_id, updated_at")
     .eq("user_id", userId)
     .order("updated_at", { ascending: false })
     .limit(8);
@@ -546,6 +635,7 @@ export async function getEmployeeProfile(
     id: a.id,
     training: tmap.get(a.training_id) ?? "Capacitación",
     status: a.status as "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED",
+    progress: a.progress,
     points: a.status === "COMPLETED" && a.score ? a.score * 3 : 0,
     date: formatShort(a.updated_at),
   }));
@@ -568,6 +658,7 @@ export async function getEmployeeProfile(
       points: u.points,
       completedTrainings: dash.user.completedTrainings,
       totalTrainings: dash.user.totalTrainings,
+      overallProgressPercent: dash.user.overallProgressPercent,
       streak: dash.user.streak,
       rank: dash.user.rank,
     },
@@ -627,7 +718,7 @@ export async function getAdminAnalytics(): Promise<AdminAnalyticsSnapshot | null
   const { data: allAssign } = await sb
     .from("assignments")
     .select(
-      "id, status, score, training_id, user_id, created_at, updated_at, completed_at"
+      "id, status, progress, score, training_id, user_id, created_at, updated_at, completed_at"
     );
   const assigns = allAssign ?? [];
 
@@ -659,19 +750,20 @@ export async function getAdminAnalytics(): Promise<AdminAnalyticsSnapshot | null
     .eq("is_active", true);
   const deptByUser = new Map((emps ?? []).map((e) => [e.id, e.department ?? "Sin departamento"]));
 
-  const deptStats = new Map<string, { total: number; completed: number }>();
+  const deptProgress = new Map<
+    string,
+    Array<{ status: (typeof assigns)[number]["status"]; progress: number }>
+  >();
   for (const a of assigns) {
     const dept = deptByUser.get(a.user_id) ?? "Sin departamento";
-    const cur = deptStats.get(dept) ?? { total: 0, completed: 0 };
-    cur.total += 1;
-    if (a.status === "COMPLETED") cur.completed += 1;
-    deptStats.set(dept, cur);
+    const list = deptProgress.get(dept) ?? [];
+    list.push({ status: a.status, progress: a.progress });
+    deptProgress.set(dept, list);
   }
-  const completionByDepartment = [...deptStats.entries()]
-    .map(([department, st]) => ({
+  const completionByDepartment = [...deptProgress.entries()]
+    .map(([department, list]) => ({
       department,
-      completion:
-        st.total > 0 ? Math.round((st.completed / st.total) * 100) : 0,
+      completion: aggregateAssignmentProgress(list).progressPercent,
     }))
     .sort((a, b) => a.department.localeCompare(b.department));
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TrainingCard } from "@/components/training-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,12 +9,14 @@ import { Search, X } from "lucide-react";
 
 export type EmployeeTrainingRow = {
   id: string;
+  assignmentId: string;
   title: string;
   category: string;
   duration: number;
   progress: number;
   status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
   dueDate?: string;
+  fileUrl?: string | null;
 };
 
 const FILTERS = ["Todos", "Pendiente", "En Curso", "Completado"] as const;
@@ -34,9 +36,14 @@ export function TrainingsClient({
 }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("Todos");
+  const [trainings, setTrainings] = useState(initialTrainings);
+
+  useEffect(() => {
+    setTrainings(initialTrainings);
+  }, [initialTrainings]);
 
   const filtered = useMemo(() => {
-    return initialTrainings.filter((t) => {
+    return trainings.filter((t) => {
       const matchesStatus =
         !filterMap[filter] || t.status === filterMap[filter];
       const matchesSearch =
@@ -44,19 +51,16 @@ export function TrainingsClient({
         t.category.toLowerCase().includes(search.toLowerCase());
       return matchesStatus && matchesSearch;
     });
-  }, [initialTrainings, search, filter]);
+  }, [trainings, search, filter]);
 
   const counts = useMemo(
     () => ({
-      Todos: initialTrainings.length,
-      Pendiente: initialTrainings.filter((t) => t.status === "NOT_STARTED")
-        .length,
-      "En Curso": initialTrainings.filter((t) => t.status === "IN_PROGRESS")
-        .length,
-      Completado: initialTrainings.filter((t) => t.status === "COMPLETED")
-        .length,
+      Todos: trainings.length,
+      Pendiente: trainings.filter((t) => t.status === "NOT_STARTED").length,
+      "En Curso": trainings.filter((t) => t.status === "IN_PROGRESS").length,
+      Completado: trainings.filter((t) => t.status === "COMPLETED").length,
     }),
-    [initialTrainings]
+    [trainings]
   );
 
   return (

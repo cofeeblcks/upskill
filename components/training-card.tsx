@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -6,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { BookOpen, Clock, Play, CheckCircle2 } from "lucide-react"
 
 interface TrainingCardProps {
+  id: string
   title: string
   category: string
   duration: number
@@ -41,6 +43,7 @@ const categoryColors: Record<string, string> = {
 }
 
 export function TrainingCard({
+  id,
   title,
   category,
   duration,
@@ -98,8 +101,19 @@ export function TrainingCard({
       </CardContent>
 
       <CardFooter className="rounded-b-2xl border-t border-border/40 bg-muted/40 p-4">
-        <Button className="w-full rounded-xl" size="sm" variant={status === "COMPLETED" ? "secondary" : "default"}>
-          {status === "NOT_STARTED" ? "Comenzar" : status === "IN_PROGRESS" ? "Continuar" : "Ver Certificado"}
+        <Button
+          asChild
+          className="w-full rounded-xl"
+          size="sm"
+          variant={status === "COMPLETED" ? "secondary" : "default"}
+        >
+          <Link href={`/dashboard/trainings/${id}`}>
+            {status === "NOT_STARTED"
+              ? "Comenzar"
+              : status === "IN_PROGRESS"
+                ? "Continuar"
+                : "Ver detalle"}
+          </Link>
         </Button>
       </CardFooter>
     </Card>

@@ -53,10 +53,7 @@ export default async function ProfilePage() {
     .map((n) => n[0])
     .join("")
     .toUpperCase();
-  const pct =
-    user.totalTrainings > 0
-      ? Math.round((user.completedTrainings / user.totalTrainings) * 100)
-      : 0;
+  const pct = user.overallProgressPercent;
 
   return (
     <div className="space-y-6">
@@ -159,8 +156,8 @@ export default async function ProfilePage() {
             <CardContent className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">
-                  {user.completedTrainings} de {user.totalTrainings} capacitaciones
-                  completadas
+                  {user.completedTrainings} de {user.totalTrainings} completadas ·
+                  promedio {pct}%
                 </span>
                 <span className="font-semibold text-foreground">{pct}%</span>
               </div>
@@ -194,6 +191,11 @@ export default async function ProfilePage() {
                         </span>
                       </div>
                       <div className="flex shrink-0 items-center gap-3">
+                        {item.status === "IN_PROGRESS" && (
+                          <span className="text-xs font-medium text-foreground">
+                            {item.progress}%
+                          </span>
+                        )}
                         {item.points > 0 && (
                           <span className="text-xs font-semibold text-warning">
                             +{item.points} pts

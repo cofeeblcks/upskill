@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import { createEmployeeBodySchema } from "@/lib/schemas/employee";
+import { buildUserProgressMap } from "@/lib/trainings/progress";
 
 function supabaseUnavailableResponse() {
   return NextResponse.json(
@@ -36,27 +37,14 @@ export async function GET() {
       return NextResponse.json({ error: aErr.message }, { status: 500 });
     }
 
-    const agg = new Map<
-      string,
-      { sum: number; n: number; completed: number; total: number }
-    >();
-    for (const a of assignments ?? []) {
-      const cur = agg.get(a.user_id) ?? {
-        sum: 0,
-        n: 0,
-        completed: 0,
-        total: 0,
-      };
-      cur.sum += a.progress;
-      cur.n += 1;
-      cur.total += 1;
-      if (a.status === "COMPLETED") cur.completed += 1;
-      agg.set(a.user_id, cur);
-    }
+    const progressByUser = buildUserProgressMap(assignments ?? []);
 
     const payload = (users ?? []).map((u) => {
-      const g = agg.get(u.id);
-      const progress = g && g.n > 0 ? Math.round(g.sum / g.n) : 0;
+      const g = progressByUser.get(u.id) ?? {
+        completed: 0,
+        total: 0,
+        progressPercent: 0,
+      };
       return {
         id: u.id,
         name: u.name,
@@ -65,11 +53,11 @@ export async function GET() {
         role: u.role,
         position: u.position ?? "—",
         points: u.points,
-        progress,
+        progress: g.progressPercent,
         status: u.is_active ? "active" : "inactive",
         isActive: u.is_active,
-        completedTrainings: g?.completed ?? 0,
-        totalTrainings: g?.total ?? 0,
+        completedTrainings: g.completed,
+        totalTrainings: g.total,
       };
     });
 

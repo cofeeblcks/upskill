@@ -1,7 +1,10 @@
+import { DataRefreshOnFocus } from "@/components/data-refresh-on-focus";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
 import { DashboardTopbar } from "@/components/dashboard-topbar";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { getLayoutSession } from "@/lib/layout-session";
+
+export const dynamic = "force-dynamic";
 
 export default async function DashboardLayout({
   children,
@@ -21,6 +24,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
+      <DataRefreshOnFocus />
       <DashboardSidebar role={role} />
       <SidebarInset className="flex w-full flex-col">
         <DashboardTopbar user={topbarUser} />

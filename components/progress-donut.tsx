@@ -12,16 +12,21 @@ import { Target } from "lucide-react"
 interface ProgressDonutProps {
   completed: number
   total: number
+  /** Promedio de avance por asignación (0–100). Si no se pasa, usa completadas/total. */
+  progressPercent?: number
   title?: string
 }
 
 export function ProgressDonut({
   completed,
   total,
+  progressPercent,
   title = "Progreso General",
 }: ProgressDonutProps) {
   const remaining = total - completed
-  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0
+  const percentage =
+    progressPercent ??
+    (total > 0 ? Math.round((completed / total) * 100) : 0)
 
   const data = [
     { name: "Completados", value: completed, fill: "var(--success)" },
@@ -82,7 +87,7 @@ export function ProgressDonut({
                 dy="1.5em"
                 className="text-sm fill-muted-foreground"
               >
-                completado
+                progreso
               </tspan>
             </text>
           </PieChart>
