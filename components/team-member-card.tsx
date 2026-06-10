@@ -11,6 +11,7 @@ interface TeamMemberCardProps {
   avatar?: string
   completedTrainings: number
   totalTrainings: number
+  progressPercent?: number
   points: number
 }
 
@@ -21,12 +22,14 @@ export function TeamMemberCard({
   avatar,
   completedTrainings,
   totalTrainings,
+  progressPercent,
   points,
 }: TeamMemberCardProps) {
   const completionRate =
-    totalTrainings > 0
+    progressPercent ??
+    (totalTrainings > 0
       ? Math.round((completedTrainings / totalTrainings) * 100)
-      : 0
+      : 0)
 
   const initials = name
     .split(" ")

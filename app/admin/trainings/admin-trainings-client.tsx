@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TrainingTable } from "@/components/training-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,9 +45,14 @@ export function AdminTrainingsClient({
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todas");
   const [status, setStatus] = useState("Todos");
+  const [trainings, setTrainings] = useState(initialTrainings);
+
+  useEffect(() => {
+    setTrainings(initialTrainings);
+  }, [initialTrainings]);
 
   const filtered = useMemo(() => {
-    return initialTrainings.filter((t) => {
+    return trainings.filter((t) => {
       const matchesSearch = t.title.toLowerCase().includes(search.toLowerCase());
       const matchesCategory = category === "Todas" || t.category === category;
       const matchesStatus =
@@ -56,7 +61,7 @@ export function AdminTrainingsClient({
         (status === "Inactivos" && !t.isActive);
       return matchesSearch && matchesCategory && matchesStatus;
     });
-  }, [initialTrainings, search, category, status]);
+  }, [trainings, search, category, status]);
 
   const hasActiveFilters = search || category !== "Todas" || status !== "Todos";
 

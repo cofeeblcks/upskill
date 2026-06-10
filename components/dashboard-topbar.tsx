@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -32,6 +32,38 @@ interface DashboardTopbarProps {
 export function DashboardTopbar({ user, title = "Panel", showPoints = true }: DashboardTopbarProps) {
   const router = useRouter()
   const [isSigningOut, setIsSigningOut] = useState(false)
+  const [livePoints, setLivePoints] = useState(user.points)
+
+  useEffect(() => {
+    setLivePoints(user.points)
+  }, [user.points])
+
+  useEffect(() => {
+    if (!showPoints) return
+
+    async function fetchSummary() {
+      try {
+        const res = await fetch("/api/me/summary", { credentials: "same-origin" })
+        if (!res.ok) return
+        const data = (await res.json()) as { points?: number }
+        if (typeof data.points === "number") setLivePoints(data.points)
+      } catch {
+        /* ignore */
+      }
+    }
+
+    fetchSummary()
+    const refresh = () => void fetchSummary()
+    window.addEventListener("focus", refresh)
+    window.addEventListener("upskill:progress-updated", refresh)
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") refresh()
+    })
+    return () => {
+      window.removeEventListener("focus", refresh)
+      window.removeEventListener("upskill:progress-updated", refresh)
+    }
+  }, [showPoints])
 
   const handleSignOut = async () => {
     setIsSigningOut(true)
@@ -61,11 +93,11 @@ export function DashboardTopbar({ user, title = "Panel", showPoints = true }: Da
 
       <div className="flex items-center gap-4">
         {/* Points Badge */}
-        {showPoints && user.points !== undefined && user.points > 0 && (
+        {showPoints && livePoints !== undefined && livePoints > 0 && (
           <div className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-primary">
-              {new Intl.NumberFormat("en-US").format(user.points)} pts
+              {new Intl.NumberFormat("en-US").format(livePoints)} pts
             </span>
           </div>
         )}

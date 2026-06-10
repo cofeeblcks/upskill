@@ -95,6 +95,7 @@ export default async function EmployeeDashboard() {
           <ProgressDonut
             completed={user.completedTrainings}
             total={Math.max(user.totalTrainings, 1)}
+            progressPercent={user.overallProgressPercent}
           />
           <Leaderboard users={leaderboard} title="Top 5 del Mes" />
         </div>

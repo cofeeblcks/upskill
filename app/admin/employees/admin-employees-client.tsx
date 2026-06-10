@@ -113,6 +113,17 @@ export function AdminEmployeesClient({
     setEmployees(initialEmployees)
   }, [initialEmployees])
 
+  useEffect(() => {
+    const refresh = () => {
+      void refetchEmployees()
+    }
+    window.addEventListener("focus", refresh)
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") refresh()
+    })
+    return () => window.removeEventListener("focus", refresh)
+  }, [])
+
   async function refetchEmployees() {
     const res = await fetch("/api/employees", { credentials: "same-origin" });
     if (res.ok) {
@@ -427,12 +438,7 @@ export function AdminEmployeesClient({
                   .map((n) => n[0])
                   .join("")
                   .toUpperCase()
-                const completionRate =
-                  employee.totalTrainings > 0
-                    ? Math.round(
-                        (employee.completedTrainings / employee.totalTrainings) * 100
-                      )
-                    : 0
+                const completionRate = employee.progress
                 const roleConfig = roleLabels[employee.role]
 
                 return (
